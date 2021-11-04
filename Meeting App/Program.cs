@@ -96,12 +96,12 @@ namespace Meeting_App
 
                     Meeting newMeeting = new Meeting(name, location, startTime, endTime);
                     listOfMeetings.Add(newMeeting);
-
+                    Console.WriteLine("Calander has been loaded from:" + path);
                 }
             }
             catch (FileNotFoundException e)
             {
-                Console.WriteLine("File not found.");
+                Console.WriteLine("No Calendar file found at: " + path);
             }
             catch (DirectoryNotFoundException e)
             {
@@ -114,12 +114,10 @@ namespace Meeting_App
             catch (UnauthorizedAccessException e)
             {
                 Console.WriteLine("Access denied.");
-            }
-            Console.WriteLine("Calander has been loaded from:" + path);
+            }            
             Console.WriteLine();
 
-            CalendarMenu(listOfMeetings);
-            
+            CalendarMenu(listOfMeetings);            
         }
         static void CreateNewCalendarMenu()
         {
@@ -358,7 +356,7 @@ namespace Meeting_App
             Console.Clear();
 
             DateTime workDay = dayToView.AddHours(8);
-            Console.WriteLine("Schedule for the day:\n");
+            Console.WriteLine("Schedule for "+dayToView.ToString("ddd")+" "+dayToView.ToString("MM/dd")+":\n");
             for (int i = 0; i <= 18; i++)
             {
                 Console.Write(workDay.ToString("hh:mm:tt")+" | ");
