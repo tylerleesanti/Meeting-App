@@ -313,23 +313,24 @@ namespace Meeting_App
                 Console.WriteLine("No meetings with that name.");
             }
             return updatedListOfMeetings;
-        }        
+        }
+        /*
         static void DisplayCalendar(List<Meeting> listOfMeetings)
         {
             Console.Clear();
             DateTime today = DateTime.Today.Date;
             string todayString = today.ToString("MM/dd");
-            Console.WriteLine("Here's your next 14 days:\n");            
-            for (int i = 1; i  <= 14; i++)
+            Console.WriteLine("Here's your next 14 days:\n");
+            for (int i = 1; i <= 14; i++)
             {
-                Console.Write(today.ToString("ddd")+" "+todayString+":");
+                Console.Write(today.ToString("ddd") + " " + todayString + ":");
                 foreach (Meeting meeting in listOfMeetings)
                 {
                     if (meeting.StartDateTime.Date.ToString("MM/dd") == todayString)
                     {
                         Console.WriteLine();
-                        Console.Write("\t\tTitle:"+meeting.Title);
-                        Console.Write("\tLocation:" +meeting.Location);
+                        Console.Write("\t\tTitle:" + meeting.Title);
+                        Console.Write("\tLocation:" + meeting.Location);
                         Console.WriteLine();
                         Console.Write("\t\tStart:" + meeting.StartDateTime.ToString("t"));
                         Console.Write("\tEnd:" + meeting.EndDateTime.ToString("t"));
@@ -338,6 +339,70 @@ namespace Meeting_App
                 Console.WriteLine();
                 today = today.AddDays(1);
                 todayString = today.ToString("MM/dd");
+            }
+            Console.WriteLine();
+        }
+        */
+        static void DisplayCalendar(List<Meeting> listOfMeetings)
+        {
+            Console.Clear();
+            int numOfMeetings;
+            DateTime day = DateTime.Today.Date;
+            string shortDateString = day.ToString("MM/dd");
+            Console.WriteLine("Here's your next 10 work days:\n");            
+            for (int i = 1; i  <= 10; i++)
+            {
+                numOfMeetings = 0;
+                if (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    i--;
+                }
+                else
+                {
+                    Console.Write(day.ToString("ddd") + " " + shortDateString + "| ");
+                    foreach (Meeting meeting in listOfMeetings)
+                    {
+                        if (meeting.StartDateTime.Date.ToString("MM/dd") == shortDateString)
+                        {
+                            numOfMeetings++;
+                        }
+                    }
+                    if (numOfMeetings > 0)
+                    {
+                        Console.Write(numOfMeetings + " meetings");
+                    }
+                    else
+                    {
+                        Console.Write("No meetings.");
+                    }
+                    Console.WriteLine();
+                }
+                day = day.AddDays(1);
+                shortDateString = day.ToString("MM/dd");
+            }
+            Console.WriteLine();
+            Console.Write("Which day would you like to view?\nChoice (MM/DD): ");
+            DateTime dayToView = DateTimeEntryCheck(Console.ReadLine());
+
+            Console.Clear();
+
+            DateTime workDay = dayToView.AddHours(8);
+            Console.WriteLine("Schedule for the day:\n");
+            for (int i = 0; i <= 18; i++)
+            {
+                Console.Write(workDay.ToString("hh:mm:tt")+" | ");
+                foreach (Meeting meeting in listOfMeetings)
+                {
+                    if (meeting.StartDateTime.ToString("MM/dd") == dayToView.ToString("MM/dd"))
+                    {
+                        if (meeting.StartDateTime <= workDay && meeting.EndDateTime >= workDay)
+                        {
+                            Console.Write(meeting.Title);
+                        }
+                    }
+                }
+                workDay = workDay.AddMinutes(30);
+                Console.WriteLine();
             }
             Console.WriteLine();
         }
