@@ -314,35 +314,6 @@ namespace Meeting_App
             }
             return updatedListOfMeetings;
         }
-        /*
-        static void DisplayCalendar(List<Meeting> listOfMeetings)
-        {
-            Console.Clear();
-            DateTime today = DateTime.Today.Date;
-            string todayString = today.ToString("MM/dd");
-            Console.WriteLine("Here's your next 14 days:\n");
-            for (int i = 1; i <= 14; i++)
-            {
-                Console.Write(today.ToString("ddd") + " " + todayString + ":");
-                foreach (Meeting meeting in listOfMeetings)
-                {
-                    if (meeting.StartDateTime.Date.ToString("MM/dd") == todayString)
-                    {
-                        Console.WriteLine();
-                        Console.Write("\t\tTitle:" + meeting.Title);
-                        Console.Write("\tLocation:" + meeting.Location);
-                        Console.WriteLine();
-                        Console.Write("\t\tStart:" + meeting.StartDateTime.ToString("t"));
-                        Console.Write("\tEnd:" + meeting.EndDateTime.ToString("t"));
-                    }
-                }
-                Console.WriteLine();
-                today = today.AddDays(1);
-                todayString = today.ToString("MM/dd");
-            }
-            Console.WriteLine();
-        }
-        */
         static void DisplayCalendar(List<Meeting> listOfMeetings)
         {
             Console.Clear();
