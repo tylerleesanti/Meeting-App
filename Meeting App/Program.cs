@@ -127,9 +127,8 @@ namespace Meeting_App
                 DisplayMenu();
             }            
         }
-        static void CreateNewCalendarMenu()
-        {
-            List<Meeting> listOfMeetings = new List<Meeting>();
+        static void CreateNewCalendarMenu(List<Meeting> listOfMeetings)
+        {            
             Console.Clear();
             Console.Write("Please Enter information for your first meeting:\nMeeting Name:");
             string firstMeetingName = StringEntryCheck();
@@ -427,6 +426,7 @@ namespace Meeting_App
             int choice;
             do
             {
+                List<Meeting> listOfMeetings = new List<Meeting>();
                 Console.WriteLine("Welcome to Meeting App!\nWhat would you like to do?\n1)Create new calendar\n2)Load calendar from file\n0)Exit");
                 Console.Write("Selection: ");
                 string schoice = Console.ReadLine();
@@ -443,7 +443,7 @@ namespace Meeting_App
                 {
                     case 1:
                         {
-                            CreateNewCalendarMenu();
+                            CreateNewCalendarMenu(listOfMeetings);
                             break;
                         }
                     case 2:
