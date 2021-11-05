@@ -80,6 +80,7 @@ namespace Meeting_App
             List<Meeting> listOfMeetings = new List<Meeting>();
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             string path = documentsPath + @"\calendar.dat";
+            bool calendarLoaded = false;
             Console.Clear();
 
             try
@@ -96,6 +97,7 @@ namespace Meeting_App
 
                     Meeting newMeeting = new Meeting(name, location, startTime, endTime);
                     listOfMeetings.Add(newMeeting);
+                    calendarLoaded = true;
                     Console.WriteLine("Calander has been loaded from:" + path);
                 }
             }
@@ -114,10 +116,16 @@ namespace Meeting_App
             catch (UnauthorizedAccessException e)
             {
                 Console.WriteLine("Access denied.");
-            }            
+            }
             Console.WriteLine();
-
-            CalendarMenu(listOfMeetings);            
+            if (calendarLoaded == true)
+            {
+                CalendarMenu(listOfMeetings);
+            }
+            else
+            {
+                DisplayMenu();
+            }            
         }
         static void CreateNewCalendarMenu()
         {
@@ -367,8 +375,8 @@ namespace Meeting_App
                         if (meeting.StartDateTime <= workDay && meeting.EndDateTime >= workDay)
                         {
                             Console.Write(meeting.Title);
-                        }
-                    }
+                        }                        
+                    }                    
                 }
                 workDay = workDay.AddMinutes(30);
                 Console.WriteLine();
